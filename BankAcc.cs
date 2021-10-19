@@ -26,7 +26,7 @@ namespace BankAccount
         private static int _numsymbols = 25;
 
         // номер счета
-        private string _numaccount;
+        private static string _numaccount;
         // баланс
         private double _balance;
         // тип банковского счета:
@@ -35,14 +35,17 @@ namespace BankAccount
         // - текущий
         private TypeBankAccount _typebankaccount;
 
-        public void SetNumAccount(string numacc)
+        public void SetNumAccount()
         {
-            if (numacc.Length > _numsymbols)
-            { 
-                _numaccount = numacc.Substring(0, _numsymbols);
-                return;
+            _numaccount = string.Empty;
+            int[] loc = new int[25];
+            Random rnd = new Random();
+
+            for (int i=0; i < _numsymbols; i++)
+            {
+                loc[i] =  rnd.Next(0, 9);
             }
-            _numaccount = numacc.PadLeft(_numsymbols, '0');
+            _numaccount = String.Concat<int>(loc);
         }
 
         public string GetNumAccount()
@@ -85,7 +88,7 @@ namespace BankAccount
 
         public string ToString()
         {
-            return "Номер счета: " + this._numaccount + "\nБаланс: " + this._balance + 
+            return "Номер счета: " + BankAcc._numaccount + "\nБаланс: " + this._balance + 
                 "\nТип счета: " + this._typebankaccount.ToString();
         }
     }
