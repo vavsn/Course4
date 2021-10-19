@@ -35,7 +35,7 @@ namespace BankAccount
         // - текущий
         private TypeBankAccount _typebankaccount;
 
-        public void SetNumAccount()
+        private void SetNumAccount()
         {
             _numaccount = string.Empty;
             int[] loc = new int[25];
@@ -53,7 +53,7 @@ namespace BankAccount
             return _numaccount;
         }
 
-        public void SetBalance(double balance)
+        private void SetBalance(double balance)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace BankAccount
             return _balance;
         }
 
-        public void SetTypeBankAccount(TypeBankAccount typebankaccount)
+        private void SetTypeBankAccount(TypeBankAccount typebankaccount)
         {
             try
             {
@@ -86,6 +86,30 @@ namespace BankAccount
 
         }
 
+        public BankAcc() 
+        {
+            SetNumAccount();
+            SetBalance(0);
+            SetTypeBankAccount(TypeBankAccount.Curr);
+        }
+        public BankAcc(double balance)
+        {
+            SetNumAccount();
+            SetBalance(balance);
+            SetTypeBankAccount(TypeBankAccount.Curr);
+        }
+        public BankAcc(TypeBankAccount typebankaccount)
+        {
+            SetNumAccount();
+            SetBalance(0);
+            SetTypeBankAccount(typebankaccount);
+        }
+        public BankAcc(double balance, TypeBankAccount typebankaccount)
+        {
+            SetNumAccount();
+            SetBalance(balance);
+            SetTypeBankAccount(typebankaccount);
+        }
         public string ToString()
         {
             return "Номер счета: " + BankAcc._numaccount + "\nБаланс: " + this._balance + 
