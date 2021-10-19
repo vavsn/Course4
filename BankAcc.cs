@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -27,6 +28,7 @@ namespace BankAccount
 
         // номер счета
         private static string _numaccount;
+
         // баланс
         private double _balance;
         // тип банковского счета:
@@ -35,85 +37,89 @@ namespace BankAccount
         // - текущий
         private TypeBankAccount _typebankaccount;
 
-        private void SetNumAccount()
+        public string numaccount
         {
-            _numaccount = string.Empty;
-            int[] loc = new int[25];
-            Random rnd = new Random();
-
-            for (int i=0; i < _numsymbols; i++)
+            set 
             {
-                loc[i] =  rnd.Next(0, 9);
+                _numaccount = string.Empty;
+                int[] loc = new int[25];
+                Random rnd = new Random();
+
+                for (int i = 0; i < _numsymbols; i++)
+                {
+                    loc[i] = rnd.Next(0, 9);
+                }
+                _numaccount = String.Concat<int>(loc);
             }
-            _numaccount = String.Concat<int>(loc);
-        }
-
-        public string GetNumAccount()
-        {
-            return _numaccount;
-        }
-
-        private void SetBalance(double balance)
-        {
-            try
+            get 
             {
-                _balance = balance;
-            }
-            catch
-            { 
+                return _numaccount;
             }
         }
 
-        public double GetBalance()
+        public double balance
         {
-            return _balance;
-        }
-
-        private void SetTypeBankAccount(TypeBankAccount typebankaccount)
-        {
-            try
+            set 
             {
-                _typebankaccount = typebankaccount;
+                try
+                {
+                    _balance = Math.Round(value, 2);
+                }
+                catch
+                {
+                }
             }
-            catch
-            { 
+            get 
+            {
+                return _balance;
             }
         }
-
-        public TypeBankAccount GetTypeBankAccount()
+        public TypeBankAccount typebankaccount
         {
-            return _typebankaccount;
-
+            set
+            {
+                try
+                {
+                    _typebankaccount = value;
+                }
+                catch
+                {
+                }
+            }
+            get
+            {
+                return _typebankaccount;
+            }
         }
 
         public BankAcc() 
         {
-            SetNumAccount();
-            SetBalance(0);
-            SetTypeBankAccount(TypeBankAccount.Curr);
+            numaccount = "";
+            balance = 0.0;
+            typebankaccount = TypeBankAccount.Curr;
         }
-        public BankAcc(double balance)
+        public BankAcc(double bal)
         {
-            SetNumAccount();
-            SetBalance(balance);
-            SetTypeBankAccount(TypeBankAccount.Curr);
+            numaccount = "";
+            balance = bal;
+            typebankaccount = TypeBankAccount.Curr;
         }
-        public BankAcc(TypeBankAccount typebankaccount)
+        public BankAcc(TypeBankAccount tba)
         {
-            SetNumAccount();
-            SetBalance(0);
-            SetTypeBankAccount(typebankaccount);
+            numaccount = "";
+            balance = 0.0;
+            typebankaccount = tba;
         }
-        public BankAcc(double balance, TypeBankAccount typebankaccount)
+        public BankAcc(double bal, TypeBankAccount tba)
         {
-            SetNumAccount();
-            SetBalance(balance);
-            SetTypeBankAccount(typebankaccount);
+            numaccount = "";
+            balance = bal;
+            typebankaccount = tba;
         }
         public string ToString()
         {
-            return "Номер счета: " + BankAcc._numaccount + "\nБаланс: " + this._balance + 
-                "\nТип счета: " + this._typebankaccount.ToString();
+            return "Номер счета: " + this.numaccount + "\nБаланс: " + this.balance + 
+                "\nТип счета: " + this.typebankaccount.ToString();
         }
     }
 }
