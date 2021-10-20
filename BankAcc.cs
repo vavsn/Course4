@@ -143,5 +143,18 @@ namespace BankAccount
             balance += Summ;
             OutBankAcc.balance -= Summ;
         }
+
+        public string Reverse(string input)
+        {
+            char[] array = input.ToCharArray();
+            char ch1 = new char();
+            for (int i = 0; i<= input.Length / 2; i++)
+            {
+                ch1 = array[i];
+                array[i] = array[input.Length - i-1];
+                array[input.Length - i-1] = ch1;
+            }
+            return new string(array);
+        }
     }
 }
