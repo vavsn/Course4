@@ -1,17 +1,34 @@
 ﻿using System;
+using System.IO;
 
-namespace BankAccount
+namespace SearchEmail
 {
     class Program
     {
         static void Main(string[] args)
         {
-            BankAcc ba = new BankAcc(100, BankAcc.TypeBankAccount.Deb);
-            string s1 = ba.Reverse(ba.numaccount);
-            Console.WriteLine("Номер счета ДО реверсии:");
-            Console.WriteLine(ba.numaccount);
-            Console.WriteLine("Номер счета ПОСЛЕ реверсии:");
-            Console.WriteLine(s1);
+            WorkWithString ws = new WorkWithString();
+            string s1 = string.Empty;
+
+            using (StreamWriter w = new StreamWriter(@"d:\Обучение c#\test2.txt"))
+            {
+                string[] lines = File.ReadAllLines(@"d:\Обучение c#\test.txt");
+                foreach (string s in lines)
+                {
+                    s1 = s;
+                    Console.WriteLine($"Строка для обработки: {s1}");
+                    try
+                    {
+                        ws.SearchMail(ref s1);
+                        Console.WriteLine($"EMail: {s1}");
+                        w.WriteLine(s1);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Ошибка: {e.Message}");
+                    }
+                }
+            }
         }
     }
 }
