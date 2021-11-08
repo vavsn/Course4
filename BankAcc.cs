@@ -37,20 +37,21 @@ namespace BankAccount
         // - текущий
         private TypeBankAccount _typebankaccount;
 
+        private void SetNumAccount()
+        {
+            _numaccount = string.Empty;
+            int[] loc = new int[25];
+            Random rnd = new Random();
+
+            for (int i = 0; i < _numsymbols; i++)
+            {
+                loc[i] = rnd.Next(0, 9);
+            }
+            _numaccount = String.Concat<int>(loc);
+        }
+
         public string numaccount
         {
-            set 
-            {
-                _numaccount = string.Empty;
-                int[] loc = new int[25];
-                Random rnd = new Random();
-
-                for (int i = 0; i < _numsymbols; i++)
-                {
-                    loc[i] = rnd.Next(0, 9);
-                }
-                _numaccount = String.Concat<int>(loc);
-            }
             get 
             {
                 return _numaccount;
@@ -94,25 +95,25 @@ namespace BankAccount
 
         public BankAcc() 
         {
-            numaccount = "";
+            SetNumAccount();
             balance = 0.0;
             typebankaccount = TypeBankAccount.Curr;
         }
         public BankAcc(double bal)
         {
-            numaccount = "";
+            SetNumAccount();
             balance = bal;
             typebankaccount = TypeBankAccount.Curr;
         }
         public BankAcc(TypeBankAccount tba)
         {
-            numaccount = "";
+            SetNumAccount();
             balance = 0.0;
             typebankaccount = tba;
         }
         public BankAcc(double bal, TypeBankAccount tba)
         {
-            numaccount = "";
+            SetNumAccount();
             balance = bal;
             typebankaccount = tba;
         }
